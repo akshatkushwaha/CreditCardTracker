@@ -1,0 +1,46 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!--
+      Safe Zone Guideline:
+      The core content is placed within the 66dp center circle (r=33)
+      to ensure it's never clipped by Samsung/Android icon masks.
+    -->
+
+    <!-- Centered Abstract Card/Wallet Geometry -->
+    <!-- Base Layer (Subtle shadow/depth) -->
+    <path
+        android:pathData="M38,48 L70,48 C72.2,48 74,49.8 74,52 L74,68 C74,70.2 72.2,72 70,72 L38,72 C35.8,72 34,70.2 34,68 L34,52 C34,49.8 35.8,48 38,48 Z"
+        android:fillColor="#312E81"
+        android:fillAlpha="0.3" />
+
+    <!-- Main Indigo Layer -->
+    <path
+        android:pathData="M34,44 L66,44 C68.2,44 70,45.8 70,48 L70,64 C70,66.2 68.2,68 66,68 L34,68 C31.8,68 30,66.2 30,64 L30,48 C30,45.8 31.8,44 34,44 Z"
+        android:fillColor="#6366F1" />
+
+    <!-- Integrated Success Fold (Emerald Green) -->
+    <path
+        android:pathData="M60,40 L60,52 L74,52 C74,45.4 66.6,40 60,40 Z"
+        android:fillColor="#10B981" />
+
+    <!-- Minimalist Check Symbol -->
+    <path
+        android:pathData="M63,45 L66,48 L71,43"
+        android:strokeWidth="2"
+        android:strokeColor="#F8FAFC"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Fintech Data Accent -->
+    <path
+        android:pathData="M36,52 L46,52"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.5"
+        android:strokeLineCap="round" />
+
+</vector>
