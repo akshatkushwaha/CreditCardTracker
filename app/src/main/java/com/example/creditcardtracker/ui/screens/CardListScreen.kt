@@ -97,8 +97,12 @@ fun CardListScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 contentPadding = PaddingValues(top = 16.dp, bottom = 80.dp)
             ) {
-                items(cards) { card ->
-                    ModernCardItem(card = card, onClick = { onCardClick(card.id) })
+                items(cards, key = { it.id }) { card ->
+                    ModernCardItem(
+                        card = card, 
+                        onClick = { onCardClick(card.id) },
+                        modifier = Modifier.animateItem()
+                    )
                 }
             }
         }
@@ -106,14 +110,14 @@ fun CardListScreen(
 }
 
 @Composable
-fun ModernCardItem(card: CreditCard, onClick: () -> Unit) {
+fun ModernCardItem(card: CreditCard, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val brand = BankBranding.getBrand(card.name)
     val gradient = Brush.linearGradient(
         colors = listOf(brand.mainColor, brand.secondaryColor)
     )
 
     ElevatedCard(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(20.dp),

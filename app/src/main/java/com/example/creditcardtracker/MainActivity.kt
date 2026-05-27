@@ -3,6 +3,10 @@ package com.example.creditcardtracker
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -38,7 +42,34 @@ class MainActivity : FragmentActivity() {
                 val navController = rememberNavController()
                 var isAuthenticated by remember { mutableStateOf(false) }
 
-                NavHost(navController = navController, startDestination = "card_list") {
+                NavHost(
+                    navController = navController,
+                    startDestination = "card_list",
+                    enterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(700)
+                        ) + fadeIn(animationSpec = tween(700))
+                    },
+                    exitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                            animationSpec = tween(700)
+                        ) + fadeOut(animationSpec = tween(700))
+                    },
+                    popEnterTransition = {
+                        slideIntoContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(700)
+                        ) + fadeIn(animationSpec = tween(700))
+                    },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                            animationSpec = tween(700)
+                        ) + fadeOut(animationSpec = tween(700))
+                    }
+                ) {
                     composable("card_list") {
                         CardListScreen(
                             cardsFlow = cardDao.getAllCards(),

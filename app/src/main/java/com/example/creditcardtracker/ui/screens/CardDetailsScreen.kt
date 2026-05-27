@@ -1,5 +1,7 @@
 package com.example.creditcardtracker.ui.screens
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -107,14 +109,14 @@ fun CardDetailsScreen(
                     )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        DetailItem(
-                            label = "CVV", 
-                            value = if (isAuthenticated) card.cvv else "***"
-                        )
-                        DetailItem(
-                            label = "PIN", 
-                            value = if (isAuthenticated) card.pin else "****"
-                        )
+        DetailItem(
+            label = "CVV", 
+            value = if (isAuthenticated) card.cvv else "***"
+        )
+        DetailItem(
+            label = "PIN", 
+            value = if (isAuthenticated) card.pin else "****"
+        )
                         
                         Spacer(modifier = Modifier.height(8.dp))
                         
@@ -397,13 +399,22 @@ fun CreditCardGraphic(card: CreditCard, isAuthenticated: Boolean) {
                 "****  ****  ****  ${card.number.takeLast(4)}"
             }
             
-            Text(
-                text = displayNum,
-                color = Color.White,
-                style = MaterialTheme.typography.headlineSmall,
-                letterSpacing = 2.sp,
-                fontWeight = FontWeight.Medium
-            )
+            AnimatedContent(
+                targetState = displayNum,
+                transitionSpec = {
+                    fadeIn(animationSpec = tween(500)) togetherWith
+                    fadeOut(animationSpec = tween(500))
+                },
+                label = "CardNumberAnimation"
+            ) { targetNum ->
+                Text(
+                    text = targetNum,
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineSmall,
+                    letterSpacing = 2.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
             
             Spacer(modifier = Modifier.height(24.dp))
             
@@ -461,12 +472,21 @@ fun DetailItem(label: String, value: String) {
             style = MaterialTheme.typography.bodyMedium, 
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        Text(
-            text = value, 
-            style = MaterialTheme.typography.bodyMedium, 
-            fontWeight = FontWeight.Bold,
-            fontFamily = if (label == "PIN" || label == "CVV") androidx.compose.ui.text.font.FontFamily.Monospace else null
-        )
+        AnimatedContent(
+            targetState = value,
+            transitionSpec = {
+                fadeIn(animationSpec = tween(300)) togetherWith
+                fadeOut(animationSpec = tween(300))
+            },
+            label = "DetailValueAnimation"
+        ) { targetValue ->
+            Text(
+                text = targetValue, 
+                style = MaterialTheme.typography.bodyMedium, 
+                fontWeight = FontWeight.Bold,
+                fontFamily = if (label == "PIN" || label == "CVV") androidx.compose.ui.text.font.FontFamily.Monospace else null
+            )
+        }
     }
 }
 
